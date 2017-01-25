@@ -92,9 +92,9 @@ You can coerce one numeric types into anothers:
 
 | From / To | Int | Double | Float |
 | --------- | --- | ------ | ----- |
-| Int |  | `+(a|0)` | `fround(a|0)` |
-| Double | `~~floor(a)` |  | `fround(a)` |
-| Float | `~~floor(+a)` | `+a` |  |
+| Int | _(none)_ | `+(a|0)` | `fround(a|0)` |
+| Double | `~~floor(a)` | _(none)_  | `fround(a)` |
+| Float | `~~floor(+a)` | `+a` |  _(none)_ |
 
 ## 2. Arrays
 
