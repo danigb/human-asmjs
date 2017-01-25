@@ -5,9 +5,26 @@ human-asmjs
 
 Contributions welcome. This document is based more on my observations than on my reading of the spec. Thus, there are probably errors in this document originating from my misunderstanding of the spec.
 
-### Variables
 
-<b>Basic Types</b>
+## 1. Types
+
+Asm.js handles three numeric types:
+
+- int: 32 bit integer type
+- float: 32 bit floating point type
+- double: 64 bit floating point type
+
+Strings and other built-in objects are not allowed. Boolean value representing true / false uses int type instead of boolean type (1 and 0).
+
+### 1.1 Type declaration
+
+There are three types of declaration types for variables:
+
+- Specifying the type of parameter of function
+- Specifying the type of shared / local variable
+- Specifying return type type of function
+
+The method of describing each type is different I will.
 
 Variables must be initialized to primitive types. They cannot be null, and they cannot be calculated:
 ```javascript
@@ -56,7 +73,7 @@ function MyModule(stdlib, foreign, heap) {
   function init() {
     arr[0] = 1;
   }
-  
+
   return {
     init: init
   };
