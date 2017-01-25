@@ -24,7 +24,12 @@ There are three types of declaration types for variables:
 - Specifying the type of shared / local variable
 - Specifying return type type of function
 
-The method of describing each type is different I will.
+The method of describing each type is different:
+
+| Type | Variable declaration | Function parameter | Return type |
+| ---- | -------------------- | ------------------ | ----------- |
+| Int  | `var i = 0;` | `i = i|0;` | `return i|0` |
+
 
 Variables must be initialized to primitive types. They cannot be null, and they cannot be calculated:
 ```javascript
