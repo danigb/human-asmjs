@@ -1,10 +1,55 @@
 human-asmjs
 ===========
 
+NOTE: (asm.js will be probably abandoned in favour of WebAssembly)
+
 [asm.js](http://asmjs.org/spec/latest/) is an ahead-of-time (AOT) compiler for javascript. It's primarily intended as a target for compilers such as Emscripten, but it's possible for humans to write in asm.js as well. Unfortunately, there aren't many good examples and I ended up falling into a lot of pits from which I could only escape by trial-and-error. This readme contains some guidance to help others avoid these errors.
 
 Contributions welcome. This document is based more on my observations than on my reading of the spec. Thus, there are probably errors in this document originating from my misunderstanding of the spec.
 
+#### TOC
+
+- [0. Overview](#0-overview)
+- [1. Types](#1-types)
+- [2. Arrays](#1-arrays)
+- [3. Operators and functions](#3-operators-and-functions)
+- [4. Syntax](#4-syntax)
+- [5. Foreign function interface](#5-foreign-function-interface)
+- [6. Common errors](#6-common-errors)
+- [7. Resources](#7-resources)
+
+## 0. Overview
+
+Write asm.js code involves:
+
+- Create an asm function module
+- Use the `"use asm"` declaration
+- Shared variable declaration
+- Function(s) definition(s)
+- Export functions
+
+```javascript
+function asmModule(stdlib, foreign, heap) {
+  "use asm";
+
+  // shared variables
+  var sin = stdlib.Math.sin;
+  var heap32 = new stdlib.Float32Array(heap);
+  var size = 0;
+
+  // function declarations
+  function complexCalculation(size, factor) {
+    size = size|0;
+    factor = +factor
+    ...
+  }
+
+  // export function
+  return { complexCalculation: complexCalculation }
+}
+```
+
+The process to create an asm.js module is called [linking](http://asmjs.org/spec/latest/#linking-0)
 
 ## 1. Types
 
@@ -47,9 +92,9 @@ You can coerce one numeric types into anothers:
 
 | From / To | Int | Double | Float |
 | --------- | --- | ------ | ----- |
-| Int | --- | `+(a|0)` | `fround(a|0)` |
-| Double | `~~floor(a)` | --- | `fround(a)` |
-| Float | `~~floor(+a)` | `+a` | --- |
+| Int |  | `+(a|0)` | `fround(a|0)` |
+| Double | `~~floor(a)` |  | `fround(a)` |
+| Float | `~~floor(+a)` | `+a` |  |
 
 ## 2. Arrays
 
